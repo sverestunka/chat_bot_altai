@@ -15,6 +15,10 @@ dp = Dispatcher()
 async def send_welcome(message: types.Message):
     await message.answer("Привет! Я эхобот на aiogram 3. Отправь мне любое сообщение, и я повторю его.")
 
+@dp.message(Command("help"))
+async def command_help(message: types.Message):
+    await message.answer("Это справочная команда. Бот в разработке. Совсем скоро вы сможете воспользоваться новыми командами.")
+
 @dp.message()
 async def echo(message: types.Message):
     await message.answer(message.text)
