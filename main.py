@@ -19,6 +19,10 @@ async def send_welcome(message: types.Message):
 async def command_help(message: types.Message):
     await message.answer("Это справочная команда. Бот в разработке. Совсем скоро вы сможете воспользоваться новыми командами.")
 
+@dp.message(Command("info"))
+async def command_info(message: types.Message):
+    await message.answer("Я бот, созданный для помощи вам. Я могу отвечать на ваши вопросы, помогать вам узнавать новую информацию и многое другое. Просто напишите мне!")
+
 @dp.message()
 async def echo(message: types.Message):
     await message.answer(message.text)
