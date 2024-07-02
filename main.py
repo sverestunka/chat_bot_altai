@@ -8,7 +8,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters.command import Command
 from aiogram.filters import CommandObject
-
+from keyboards import kb1
 import config
 API_TOKEN = config.token
 # Включаем логирование, чтобы видеть сообщения в консоли
@@ -17,12 +17,6 @@ logging.basicConfig(level=logging.INFO)
 bot: Bot = Bot(token=API_TOKEN)
 dp = Dispatcher()
 
-"""button1 = types.KeyboardButton(text='info')
-button2 = types.KeyboardButton(text='help')
-kb = [
-    [button1, button2]
-]
-keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)"""
 
 @dp.message(F.text.lower() == "stop!")
 async def with_puree(message: types.Message):
@@ -47,11 +41,12 @@ async def cmd_info(message: types.Message):
 async def msg_echo(message: types.Message):
     print(message.text)
     name = message.chat.first_name
-    if 'hello' in message.text.lower():
-        await message.reply(f"И тебе привет, {name}")
-    if 'by' in message.text.lower():
-        await message.reply(f"Пока, {name}")
-    await message.answer(message.text)
+    if 'hello' in message.text.lower() or 'привет' in message.text.lower() or 'hi' in message.text.lower() or 'здравствуйте' in message.text.lower() or 'добрый вечер' in message.text.lower() or 'добрый день' in message.text.lower() or 'доброе утро' in message.text.lower() or 'доброй ночи' in message.text.lower():
+        await message.reply(f"Приветствую, {name}")
+    elif 'by' in message.text.lower() or 'пока' in message.text.lower():
+        await message.reply(f"До свидания, {name}")
+    else:
+        await message.answer(f'Ты написал - {message.text}', reply_markup=kb1)
 """@dp.message()
 async def echo(message: types.Message):
     await message.answer(message.text)"""
