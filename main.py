@@ -12,6 +12,8 @@ from aiogram.types.dice import DiceEmoji
 
 
 from keyboards import kb1
+from randomfox import fox
+
 import config
 API_TOKEN = config.token
 # Включаем логирование, чтобы видеть сообщения в консоли
@@ -44,7 +46,11 @@ async def cmd_info(message: types.Message):
 @dp.message(F.text.lower() == "покажи лису")
 async def cmd_fox(message: types.Message):
     name = message.chat.first_name
+    img_fox = fox()
     await message.reply(f"Держи лису, {name}")
+    # await message.answer_photo(photo=img_fox)
+    await bot.send_photo(message.from_user.id, photo=img_fox)
+
 
 @dp.message(F.text)
 async def msg_echo(message: types.Message):
