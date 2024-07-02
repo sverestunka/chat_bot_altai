@@ -35,11 +35,11 @@ async def echo_gif(message: types.Message):
     await message.reply_animation(message.animation.file_id)
 
 @dp.message(Command("help"))
-async def command_help(message: types.Message):
+async def cmd_help(message: types.Message):
     await message.answer("Это справочная команда. Бот в разработке. Совсем скоро вы сможете воспользоваться новыми командами.")
 
 @dp.message(Command("info"))
-async def command_info(message: types.Message):
+async def cmd_info(message: types.Message):
     await message.answer("Я бот, могу повторять за тобой")
 
 
@@ -51,14 +51,10 @@ async def msg_echo(message: types.Message):
         await message.reply(f"И тебе привет, {name}")
     if 'by' in message.text.lower():
         await message.reply(f"Пока, {name}")
-
-@dp.message()
-async def echo(message: types.Message):
     await message.answer(message.text)
-
-@dp.message()
+"""@dp.message()
 async def echo(message: types.Message):
-    await message.answer(message.text)
+    await message.answer(message.text)"""
 
 async def main():
     await dp.start_polling(bot)
