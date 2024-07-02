@@ -8,6 +8,9 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters.command import Command
 from aiogram.filters import CommandObject
+from aiogram.types.dice import DiceEmoji
+
+
 from keyboards import kb1
 import config
 API_TOKEN = config.token
@@ -36,6 +39,12 @@ async def cmd_help(message: types.Message):
 async def cmd_info(message: types.Message):
     await message.answer("Я бот, могу повторять за тобой")
 
+@dp.message(Command("fox"))
+@dp.message(Command("лиса"))
+@dp.message(F.text.lower() == "покажи лису")
+async def cmd_fox(message: types.Message):
+    name = message.chat.first_name
+    await message.reply(f"Держи лису, {name}")
 
 @dp.message(F.text)
 async def msg_echo(message: types.Message):
@@ -45,6 +54,12 @@ async def msg_echo(message: types.Message):
         await message.reply(f"Приветствую, {name}")
     elif 'by' in message.text.lower() or 'пока' in message.text.lower():
         await message.reply(f"До свидания, {name}")
+    elif 'как дела' in message.text.lower():
+        # вызывает эмодзи по коду в строке ниже
+        """text = "\U0001F601"
+        await message.answer(text)"""
+        # вызывает random (игральный кубик)
+        await message.answer_dice(emoji="🎯")
     else:
         await message.answer(f'Ты написал - {message.text}', reply_markup=kb1)
 """@dp.message()
