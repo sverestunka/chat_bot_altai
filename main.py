@@ -9,10 +9,11 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.filters.command import Command
 from aiogram.filters import CommandObject
 from aiogram.types.dice import DiceEmoji
-
+from random import randint
 
 from keyboards import kb1
 from randomfox import fox
+from altay_image import searchPhotos
 
 import config
 API_TOKEN = config.token
@@ -41,6 +42,11 @@ async def cmd_help(message: types.Message):
 async def cmd_info(message: types.Message):
     await message.answer("Я бот, могу повторять за тобой")
 
+@dp.message(F.text.lower() == "num")
+async def send_random(message: types.Message):
+    number = randint(1, 10)
+    await message.answer(f"{number}")
+
 @dp.message(Command("fox"))
 @dp.message(Command("лиса"))
 @dp.message(F.text.lower() == "покажи лису")
@@ -50,7 +56,17 @@ async def cmd_fox(message: types.Message):
     await message.reply(f"Держи лису, {name}")
     # await message.answer_photo(photo=img_fox)
     await bot.send_photo(message.from_user.id, photo=img_fox)
-
+"""
+@dp.message(Command("altai"))
+@dp.message(Command("алтай"))
+@dp.message(F.text.lower() == "покажи алтай")
+async def cmd_altai(message: types.Message):
+    name = message.chat.first_name
+    img_altai = searchPhotos()
+    await message.reply(f"Вот алтай, {name}")
+    # await message.answer_photo(photo=img_altai)
+    await bot.send_photo(message.from_user.id, photo=img_altai)
+"""
 
 @dp.message(F.text)
 async def msg_echo(message: types.Message):
