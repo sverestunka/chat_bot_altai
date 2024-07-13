@@ -11,7 +11,7 @@ from aiogram.filters import CommandObject
 from aiogram.types.dice import DiceEmoji
 from random import randint
 
-from keyboards import kb1
+from keyboards import kb1, kb2
 from randomfox import fox
 from altay_image import searchPhotos
 
@@ -45,7 +45,7 @@ async def cmd_info(message: types.Message):
 @dp.message(F.text.lower() == "num")
 async def send_random(message: types.Message):
     number = randint(1, 10)
-    await message.answer(f"{number}")
+    await message.answer(f"{number}", reply_markup=kb2)
 
 @dp.message(Command("fox"))
 @dp.message(Command("лиса"))
